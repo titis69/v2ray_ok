@@ -45,12 +45,13 @@ NUMBER_OF_CLIENTS=$(grep -E "^#### " "/etc/xray/config.json" | sort | uniq | cut
 			read -rp "Select one client [1-${NUMBER_OF_CLIENTS}]: " CLIENT_NUMBER
 		fi
 	done
-user=$(grep -E "^#### " "/etc/xray/config.json" | sort | uniq | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-exp=$(grep -E "^#### " "/etc/xray/config.json" | sort | uniq |cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
-sed -i "/^#### $user $exp/,/^},{/d" /etc/xray/config.json
-sed -i "/^#### $user $exp/,/^},{/d" /etc/xray/config.json
+user=$(grep -E "^### " "/etc/xray/config.json" | sort | uniq | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+exp=$(grep -E "^### " "/etc/xray/config.json" | sort | uniq | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
+sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+rm -f /etc/xray/vless-$user-tls.json /etc/xray/vless-$user-nontls.json
+rm -f /home/vps/public_html/ss-ws-${user}.txt
 systemctl restart xray.service
-service cron restart
 clear
 echo ""
 echo "==============================="
@@ -59,4 +60,4 @@ echo "==============================="
 echo "Username  : $user"
 echo "Expired   : $exp"
 echo "==============================="
-echo "Scipt Mod By LIZ"
+echo "Scipt Mod By berlian"
