@@ -64,7 +64,7 @@ rennewvmess
 addvless
 ;;
 5)
-delless
+dellvless
 ;;
 6)
 rennewvless
